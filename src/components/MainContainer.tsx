@@ -40,7 +40,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
         <Landing />
         <About />
         <WhatIDo />
-        <Career />
+        {/*<Career />*/}
         <Work />
         <TechStackNew />
         <CallToAction />
