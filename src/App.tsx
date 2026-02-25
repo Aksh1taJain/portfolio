@@ -3,47 +3,44 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 import "./App.css";
 
+import { LoadingProvider } from "./context/LoadingProvider";
+
+// Lazy Imports
 const CharacterModel = lazy(() => import("./components/Character"));
 const MainContainer = lazy(() => import("./components/MainContainer"));
 const MyWorks = lazy(() => import("./pages/MyWorks"));
 const Play = lazy(() => import("./pages/Play"));
-import { LoadingProvider } from "./context/LoadingProvider";
+
+const Loader = () => <div>Loading...</div>;
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <LoadingProvider>
-              <Suspense>
+      <LoadingProvider>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route
+              path="/"
+              element={
                 <MainContainer>
-                  <Suspense>
-                    <CharacterModel />
-                  </Suspense>
+                  <CharacterModel />
                 </MainContainer>
-              </Suspense>
-            </LoadingProvider>
-          }
-        />
-        <Route
-          path="/myworks"
-          element={
-            <Suspense fallback={<div>Loading...</div>}>
-              <MyWorks />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/play"
-          element={
-            <Suspense fallback={<div>Loading...</div>}>
-              <Play />
-            </Suspense>
-          }
-        />
-      </Routes>
+              }
+            />
+
+            <Route
+              path="/myworks"
+              element={<MyWorks />}
+            />
+
+            <Route
+              path="/play"
+              element={<Play />}
+            />
+          </Routes>
+        </Suspense>
+      </LoadingProvider>
+
       <Analytics />
     </BrowserRouter>
   );
