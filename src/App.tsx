@@ -9,7 +9,7 @@ import { LoadingProvider } from "./context/LoadingProvider";
 const CharacterModel = lazy(() => import("./components/Character"));
 const MainContainer = lazy(() => import("./components/MainContainer"));
 const MyWorks = lazy(() => import("./pages/MyWorks"));
-const Play = lazy(() => import("./pages/Play"));
+// const Play = lazy(() => import("./pages/Play"));
 
 const Loader = () => <div>Loading...</div>;
 
@@ -33,10 +33,13 @@ const App = () => {
               element={<MyWorks />}
             />
 
+            {/* Play route removed temporarily */}
+            {/*
             <Route
               path="/play"
               element={<Play />}
             />
+            */}
           </Routes>
         </Suspense>
       </LoadingProvider>
